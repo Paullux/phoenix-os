@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ubuntu Unity Web Replica</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="mask-icon" href="favicon.svg" color="#E95420">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap"
+      rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap"
+      rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet">
+    <script defer src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+
+  <body class="h-screen w-screen overflow-hidden text-gray-800">
+
+    <div id="top-bar"
+      class="top-bar h-7 flex items-center justify-between px-3 text-white text-sm fixed w-full z-[250] select-none">
+      <div class="flex items-center space-x-4">
+        <span class="font-bold">Ubuntu Bureau</span>
+        <span id="active-app-name"
+          class="font-light hidden md:inline opacity-90"></span>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="flex space-x-2 text-xs">
+          <i class="fas fa-wifi" title="Connexion filaire"></i>
+          <i class="fas fa-volume-up"></i>
+          <i class="fas fa-battery-three-quarters"></i>
+        </div>
+        <span id="clock" class="font-bold cursor-pointer"></span>
+        <div class="flex items-center space-x-2 relative select-none">
+          <i class="fas fa-cog cursor-pointer" title="Paramètres" onclick="openWindow('settings')"></i>
+          <div id="powerMenuWrap" class="relative">
+            <button id="powerButton"
+              class="cursor-pointer px-2 py-1 rounded hover:bg-white/10"
+              aria-haspopup="true" aria-expanded="false" title="Session">
+              <i class="fas fa-power-off"></i>
+            </button>
+
+            <!-- Dropdown -->
+            <div id="powerMenu"
+              class="hidden absolute right-0 mt-2 w-44 rounded-md overflow-hidden shadow-lg border z-[9999]">
+              <button id="powerReboot"
+                class="w-full text-left px-4 py-2 hover:bg-white/10 text-sm">
+                Redemarrer
+              </button>
+              <button id="powerShutdown"
+                class="w-full text-left px-4 py-2 hover:bg-white/10 text-sm">
+                Eteindre
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Launcher: icones en haut, corbeille en bas -->
+    <div id="launcher"
+      class="launcher w-16 fixed left-0 top-7 bottom-0 flex flex-col items-center py-2 pb-3 z-[250] gap-2">
+
+      <div
+        class="launcher-item bfb-container w-12 h-12 rounded flex items-center justify-center cursor-pointer mb-2"
+        onclick="toggleDash()">
+        <div class="bfb-spiral-bg"></div>
+        <i
+          class="fab fa-ubuntu text-3xl text-white z-10 filter drop-shadow-md"></i>
+        <span class="tooltip">Rechercher</span>
+      </div>
+
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+        onclick="openWindow('file-manager')">
+        <i class="fas fa-folder text-3xl text-orange-400 drop-shadow-lg"></i>
+        <span class="tooltip">Fichiers</span>
+      </div>
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+        onclick="openWindow('firefox')">
+        <i
+          class="fab fa-firefox-browser text-3xl text-orange-600 drop-shadow-lg"></i>
+        <span class="tooltip">Firefox</span>
+      </div>
+        <div class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+            onclick="openWindow('calculator')">
+          <i class="fas fa-calculator  text-4xl mb-2 text-violet-500"></i>
+          <span class="tooltip">Calculatrice</span>
+        </div>
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+        onclick="openWindow('gedit')">
+        <i class="fas fa-edit text-3xl text-gray-200 drop-shadow-lg"></i>
+        <span class="tooltip">Éditeur de texte</span>
+      </div>
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+        onclick="openWindow('libreoffice')">
+        <i class="fas fa-file-word text-3xl text-blue-500 drop-shadow-lg"></i>
+        <span class="tooltip">Writer</span>
+      </div>
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+        onclick="openWindow('vlc')">
+        <img
+          src="assets/logos/vlc.svg"
+          alt="VLC"
+          class="text-3xl text-orange-500 drop-shadow-lg pointer-events-none select-none" />
+        <span class="tooltip">VLC</span>
+      </div>
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+        onclick="openWindow('terminal')">
+        <i
+          class="fas fa-terminal text-3xl text-gray-300 drop-shadow-lg bg-black px-1 rounded"></i>
+        <span class="tooltip">Terminal</span>
+      </div>
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer"
+        onclick="openWindow('settings')">
+        <i class="fas fa-cog text-3xl text-gray-400 drop-shadow-lg"></i>
+        <span class="tooltip">Paramètres</span>
+      </div>
+
+      <!-- mt-auto pousse la corbeille en bas, le reste reste en haut -->
+      <div
+        class="launcher-item w-12 h-12 rounded flex items-center justify-center cursor-pointer mt-auto pt-2"
+        onclick="openWindow('trash')">
+        <i class="fas fa-trash-alt text-3xl text-gray-400 drop-shadow-lg"></i>
+        <span class="tooltip">Corbeille</span>
+      </div>
+    </div>
+
+    <div id="desktop" class="absolute top-7 left-16 right-0 bottom-0 z-0"
+      onclick="focusWindow(null)"></div>
+
+    <div id="dash"
+      class="dash-overlay fixed top-7 left-0 w-full h-full z-[300] hidden flex flex-col p-10 text-white"
+      onclick="if(event.target === this) toggleDash()">
+      <div class="max-w-4xl mx-auto w-full">
+        <div class="relative mb-10">
+          <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
+          <input type="text" id="dash-search"
+            placeholder="Rechercher des applications..."
+            class="w-full bg-white/10 border border-white/20 rounded-md py-2 pl-10 pr-4 text-white placeholder-gray-300 focus:outline-none focus:bg-white/20">
+        </div>
+        <h3
+          class="text-sm uppercase tracking-wider text-gray-300 mb-4 border-b border-gray-600 pb-2">Applications
+          Récentes</h3>
+        <div class="grid grid-cols-6 gap-8">
+          <div
+            class="flex flex-col items-center cursor-pointer hover:bg-white/10 p-4 rounded"
+            onclick="openWindow('firefox'); toggleDash()">
+            <i class="fab fa-firefox-browser text-4xl mb-2 text-orange-500"></i>
+            <span class="text-sm">Firefox</span>
+          </div>
+          <!-- Calculator (launcher icon) -->
+          <div class="flex flex-col items-center cursor-pointer hover:bg-white/10 p-4 rounded"
+              onclick="openWindow('calculator'); toggleDash()">
+            <i class="fas fa-calculator  text-4xl mb-2 text-violet-500"></i>
+            <span class="text-sm">Calculatrice</span>
+          </div>
+          <div class="flex flex-col items-center cursor-pointer hover:bg-white/10 p-4 rounded"
+              onclick="openWindow('vlc'); toggleDash()">
+              <img
+                src="assets/logos/vlc.svg"
+                alt="VLC"
+                class="w-12 h-12 mb-2 drop-shadow-lg pointer-events-none" />
+            <span class="text-sm">VLC</span>
+          </div>
+          <div
+            class="flex flex-col items-center cursor-pointer hover:bg-white/10 p-4 rounded"
+            onclick="openWindow('terminal'); toggleDash()">
+            <i class="fas fa-terminal text-4xl mb-2 text-gray-300"></i>
+            <span class="text-sm">Terminal</span>
+          </div>
+          <div
+            class="flex flex-col items-center cursor-pointer hover:bg-white/10 p-4 rounded"
+            onclick="openWindow('gedit'); toggleDash()">
+            <i class="fas fa-edit text-4xl mb-2 text-gray-200"></i>
+            <span class="text-sm">Éditeur</span>
+          </div>
+          <div
+            class="flex flex-col items-center cursor-pointer hover:bg-white/10 p-4 rounded"
+            onclick="openWindow('file-manager'); toggleDash()">
+            <i class="fas fa-folder text-4xl mb-2 text-orange-300"></i>
+            <span class="text-sm">Fichiers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="windows-container"></div>
+
+    <!-- Plymouth overlay -->
+    <div id="plymouth" class="plymouth hidden" aria-hidden="true">
+      <div class="plymouth-center">
+        <div id="plymouth-title" class="plymouth-logo" aria-label="ubuntu">
+          <span class="plymouth-ubuntu">ubuntu</span><span class="plymouth-reg">®</span>
+        </div>
+        
+        <div class="plymouth-dots" aria-hidden="true">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        
+        <div id="plymouth-sub" class="plymouth-sub">Hello, world.</div>
+      </div>
+    </div>
+    <div id="blackout" class="blackout"></div>
+    
+    <script defer src="assets/app-configs.js"></script>
+
+    <script defer src="assets/core/core.js"></script>
+    <script defer src="assets/core/utils.js"></script>
+    <script defer src="assets/core/desktop.js"></script>
+    <script defer src="assets/musique/manifest.js"></script>
+    <script defer src="assets/core/vfs.js"></script>
+    <script defer src="assets/apps/nautilus.js"></script>
+    <script defer src="assets/apps/gedit.js"></script>
+    <script defer src="assets/apps/firefox.js"></script>
+    <script defer src="assets/apps/calculator.js"></script>
+    <script defer src="assets/apps/terminal.js"></script>
+    <script defer src="assets/apps/vlc.js"></script>
+    <script defer src="assets/apps/writer.js"></script>
+    <script defer src="assets/apps/settings.js"></script>
+    <script defer src="assets/apps/trash.js"></script>
+    <script defer src="assets/apps/imageviewer.js"></script>
+
+    <script defer src="assets/core/window-manager.js"></script>
+    <script defer src="assets/core/dash.js"></script>
+    <script defer src="assets/core/clock.js"></script>
+    <script defer src="assets/core/plymouth.js"></script>
+    <script defer src="assets/core/power-menu.js"></script>
+  </body>
+</html>
