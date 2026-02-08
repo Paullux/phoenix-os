@@ -86,6 +86,44 @@
         lastDirPath: "/home/user/Musique/Lea_Solene",
     };
 
+    window.vlcReset = function () {
+        // reset state
+        VLC_STATE.playlist = [];
+        VLC_STATE.index = -1;
+        VLC_STATE.lastPrevTap = 0;
+
+        // stop audio element si on l'a deja
+        const a = VLC_STATE.audioEl || document.querySelector("#vlc-audio");
+        if (a) {
+            try {
+            a.pause();
+            a.currentTime = 0;
+            a.removeAttribute("src");
+            a.load();
+            } catch (e) {}
+        }
+
+        // reset UI si la fenetre est encore la
+        const title = document.querySelector("#vlc-title");
+        if (title) title.textContent = "Aucun média";
+
+        const cover = document.querySelector("#vlc-cover");
+        const cone = document.querySelector("#vlc-cone");
+        if (cover) {
+            cover.src = "";
+            cover.classList.add("hidden");
+        }
+        if (cone) cone.classList.remove("hidden");
+
+        const seek = document.querySelector("#vlc-seek");
+        if (seek) seek.value = "0";
+
+        const timeEl = document.querySelector("#vlc-time");
+        if (timeEl) timeEl.textContent = "0:00 / 0:00";
+
+        console.log("[VLC] reset OK");
+    };
+
     window.initVLC = function initVLC(winEl) {
         // important: on scope dans la fenetre VLC
         const root =
@@ -110,6 +148,7 @@
         const volText = root.querySelector("#vlc-vol-text");
 
         if (!audio || !playBtn || !seek || !volInput) return;
+        VLC_STATE.audioEl = audio;
 
         // evite de binder 15 fois si onLoad est rappele
         if (root.dataset.vlcBound === "1") return;

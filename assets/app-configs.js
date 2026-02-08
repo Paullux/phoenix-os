@@ -105,9 +105,11 @@
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
                         onclick="fmNavigateTo('/home/user/Documents')"><i class="fas fa-file-alt mr-3 text-gray-500"></i> Documents</div>
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Téléchargements')"><i class="fas fa-download mr-3 text-gray-500"></i> Téléch.</div>
+                        onclick="fmNavigateTo('/home/user/Musique')"><i class="fas fa-file-alt mr-3 text-gray-500"></i> Musique</div>
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
                         onclick="fmNavigateTo('/home/user/Images')"><i class="fas fa-images mr-3 text-gray-500"></i> Images</div>
+                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
+                        onclick="fmNavigateTo('/home/user/Téléchargements')"><i class="fas fa-download mr-3 text-gray-500"></i> Téléch.</div>
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
                         onclick="fmNavigateTo('/')"><i class="fas fa-hdd mr-3 text-gray-500"></i> Ordinateur</div>
                     </div>
@@ -168,26 +170,31 @@
                 </div>
             `,
             onLoad(winEl){
+                if (typeof window.vlcReset === "function") {
+                    window.vlcReset();
+                }
                 window.initVLC(winEl);
             }
         },
 
         imageviewer: {
-        title: "Visionneuse d'images",
-        icon: "fa-image",
-        width: 720,
-        height: 520,
-        content: `
-            <div class="imgv-wrap">
-            <div class="imgv-stage">
-                <img id="imgv-img" class="imgv-img" src="" alt="">
-            </div>
-            <div id="imgv-name" class="imgv-name">-</div>
-            </div>
-        `,
-        onLoad(winEl) {
-            // Rien à faire ici, on alimente via openImageViewer(...)
-        }
+            title: "Visionneuse d'images",
+            icon: "fa-image",
+            width: 720,
+            height: 520,
+            content: `
+                <div class="imgv-wrap">
+                <div class="imgv-stage">
+                    <button id="imgv-prev" class="imgv-nav imgv-prev" title="Précédent">‹</button>
+                    <img id="imgv-img" class="imgv-img" src="" alt="">
+                    <button id="imgv-next" class="imgv-nav imgv-next" title="Suivant">›</button>
+                </div>
+                <div id="imgv-name" class="imgv-name">-</div>
+                </div>
+            `,
+            onLoad(win) {
+                // rien, tout passe par openImageViewer(...)
+            }
         },
 
         firefox: {

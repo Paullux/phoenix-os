@@ -31,8 +31,22 @@
                     },
                     },
                 },
+                boot: { type: "dir", children: {} },
+                dev: { type: "dir", children: {} },
                 etc: { type: "dir", children: { hostname: { type: "file", content: "ubuntu-desktop" } } },
                 bin: { type: "dir", children: {} },
+                media: { type: "dir", children: {} },
+                mnt: { type: "dir", children: {} },
+                opt: { type: "dir", children: {} },
+                proc: { type: "dir", children: {} },
+                root: { type: "dir", children: {} },
+                run: { type: "dir", children: {} },
+                snap: { type: "dir", children: {} },
+                srv: { type: "dir", children: {} },
+                sys: { type: "dir", children: {} },
+                tmp: { type: "dir", children: {} },
+                usr: { type: "dir", children: {} },
+                var: { type: "dir", children: {} },
                 },
             };
             // --- helpers: creation dossiers + fichiers "asset" (src URL) ---
@@ -51,6 +65,21 @@
                 const file = parts.pop();
                 const dir = ensureDir(rootNode, parts);
                 dir.children[file] = { type: "asset", src, mime: mime || "" };
+            }
+
+            // Mount dans /home/user/Images (web splashes)
+            const imgDir = this.root.children.home.children.user.children.Images;
+            if (imgDir && imgDir.type === "dir") {
+                addAssetFile(imgDir, "IMG_01.jpg", "https://picsum.photos/1280/720?random=101", "image/jpeg");
+                addAssetFile(imgDir, "IMG_02.jpg", "https://picsum.photos/1280/720?random=102", "image/jpeg");
+                addAssetFile(imgDir, "IMG_03.jpg", "https://picsum.photos/1920/1080?random=103", "image/jpeg");
+                addAssetFile(imgDir, "IMG_04.jpg", "https://picsum.photos/1920/1080?random=104", "image/jpeg");
+                addAssetFile(imgDir, "IMG_05.jpg", "https://picsum.photos/1920/1080?random=105", "image/jpeg");
+                addAssetFile(imgDir, "IMG_06.jpg", "https://picsum.photos/1920/1080?random=106", "image/jpeg");
+                addAssetFile(imgDir, "IMG_07.jpg", "https://picsum.photos/1920/1080?random=107", "image/jpeg");
+                addAssetFile(imgDir, "IMG_08.jpg", "https://picsum.photos/1920/1080?random=108", "image/jpeg");
+                addAssetFile(imgDir, "IMG_09.jpg", "https://picsum.photos/1920/1080?random=109", "image/jpeg");
+                addAssetFile(imgDir, "IMG_10.jpg", "https://picsum.photos/1920/1080?random=110", "image/jpeg");
             }
 
             // Mount dans /home/user/Musique

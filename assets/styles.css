@@ -595,6 +595,25 @@ body[data-theme='ambiance'] .top-bar .topbar-item:hover{
   background:#efede9;
   user-select:none;
 }
+.imgv-stage{ position: relative; display:flex; align-items:center; justify-content:center; height:100%; }
+.imgv-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px; height:44px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.35);
+  color:#fff;
+  font-size:28px;
+  line-height:40px;
+  cursor:pointer;
+  user-select:none;
+}
+.imgv-nav:hover{ background: rgba(0,0,0,.55); }
+.imgv-prev{ left:12px; }
+.imgv-next{ right:12px; }
+.imgv-nav[disabled]{ opacity:.35; cursor:default; }
 
 /* =========================================================
    VLC

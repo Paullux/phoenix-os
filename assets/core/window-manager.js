@@ -57,18 +57,26 @@
     };
 
     window.closeWindow = function (appId) {
-        const win = window.windows[appId];
+        const win = window.windows && window.windows[appId];
         if (!win) return;
+
+        // reset immediat (avant l'anim)
+        if (appId === "vlc" && typeof window.vlcReset === "function") {
+            window.vlcReset();
+        }
 
         win.style.transition = "all 0.15s ease-in";
         win.style.opacity = "0";
         win.style.transform = "scale(0.95)";
 
         setTimeout(() => {
-            win.remove();
-            delete window.windows[appId];
+            // au cas ou ca a deja ete supprime ailleurs
+            if (win.parentNode) win.remove();
+            if (window.windows) delete window.windows[appId];
+
             const launcherItem = document.querySelector(`.launcher-item[onclick="openWindow('${appId}')"]`);
             if (launcherItem) launcherItem.classList.remove("active", "open");
+
             const a = document.getElementById("active-app-name");
             if (a) a.textContent = "Bureau Ubuntu";
         }, 150);

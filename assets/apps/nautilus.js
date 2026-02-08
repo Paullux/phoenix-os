@@ -63,7 +63,7 @@
       }
       else if (isImg) {
         if (typeof window.openImageViewer === "function") {
-          window.openImageViewer(item.src, name);
+          window.openImageViewer(item.src, name, window.currentFMPath);
         }
       }
       // 4) fallback
@@ -112,7 +112,7 @@
           window.currentFMPath = window.currentFMPath === "/" ? `/${name}` : `${window.currentFMPath}/${name}`;
           window.updateFileManagerUI(root);
         } else if (isImg) {
-          window.openImageViewer(item.src, name);
+          window.openImageViewer(item.src, name, window.currentFMPath);
         } else if (isAudio) {
           window.openWindow("vlc");
           setTimeout(() => {
