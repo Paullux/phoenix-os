@@ -4,6 +4,13 @@
 
 ![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)
 
+## Captures
+
+| Ambiance | Radiance |
+|---|---|
+| ![Ambiance](assets/ambiance.jpg) | ![Radiance](assets/radiance.jpg) |
+
+
 ## 🌟 Fonctionnalités
 
 Phoenix OS intègre plusieurs applications inspirées de l’écosystème Ubuntu, réécrites entièrement en HTML, CSS et JavaScript. Elles ne sont pas de simples maquettes: chacune possède une logique propre et s’intègre au gestionnaire de fenêtres.
@@ -48,7 +55,7 @@ Le projet est purement "Front-end" (HTML/JS/CSS). Aucun serveur backend n'est re
 2. Ouvrez index.html dans votre navigateur ou déployez-le sur GitHub Pages.
 
 ## 📝 Configuration du Navigateur (Firefox App)
-Pour une expérience optimale, il est recommandé d'utiliser des sites compatibles avec les iFrames (comme Wikipédia, OpenStreetMap ou les versions embed Dailymotion).
+Pour une expérience optimale, il est recommandé d'utiliser des sites compatibles avec les iFrames (comme Wikipédia, OpenStreetMap ou la version embed Dailymotion).
 
 ## 📄 Licence
 [Ce projet est sous licence GNU GPL v3. Voir le fichier LICENSE.md pour plus de détails.](LICENSE.md)
