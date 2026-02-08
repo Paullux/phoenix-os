@@ -43,10 +43,13 @@
   // Ta liste de favoris par défaut
   const defaultBookmarks = [
       { name: "Wiki", url: "https://en.wikipedia.org/wiki/Ubuntu_Unity" },
-      { name: "OpenStreetMap", url: "https://www.openstreetmap.org/export/embed.html" },
       { name: "Google Maps", url: "https://maps.google.com/maps?q=Paris&output=embed" },
       { name: "Archive", url: "https://archive.org" },
       { name: "Dailymotion", url: "https://www.dailymotion.com/embed/video/x6mbdni" },
+      { name: "Site Officiel de Lea Solène", url: "https://lea-solene.fr/" },
+      { name: "Marv Web", url: "https://marv-bot.fr/" },
+      { name: "Undead Murderer", url: "https://www.undead-murderer.com/" },
+      { name: "Mon Blog", url: "https://blog.paulwoisard.fr/" },
   ];
 
   function renderBookmarks() {

@@ -26,7 +26,7 @@ Lecteur audio intégré avec playlist automatique par dossier.
 Support de la lecture directe depuis Nautilus, barre de progression, gestion du volume, bouton précédent intelligent (restart / piste précédente), covers d’album via cover.jpg et design inspiré de VLC avec dégradés orange.
 - **Mozilla Firefox**
 Navigateur web embarqué basé sur des iFrames.
-Gestion des favoris, historique de navigation et compatibilité avec les sites adaptés aux environnements sandboxés.
+Gestion des favoris et de l'historique, avec des sites de démonstration spécialement choisis pour fonctionner en iFrame.
 - **Gedit (éditeur de texte)**
 Éditeur de texte simple pour visualiser et modifier des fichiers du VFS.
 Pensé comme un outil léger, fidèle a l’esprit de Gedit.
