@@ -3,6 +3,24 @@
   window.currentFMPath = "/home/user";
   window.nautilusRootEl = null;
 
+  // --- Cache de miniatures vidéo (éléments <video> prêts à afficher) ---
+  const thumbCache = new Map(); // src -> HTMLVideoElement | "loading" | "error"
+
+  function makeVideoThumb(src) {
+    const vid = document.createElement("video");
+    vid.src = src;
+    vid.muted = true;
+    vid.preload = "metadata";
+    vid.playsInline = true;
+    vid.className = "fm-thumb-img";
+    vid.draggable = false;
+    vid.style.cssText = "border-radius:4px;object-fit:cover;width:100%;height:100%;";
+    vid.addEventListener("loadedmetadata", () => {
+      vid.currentTime = Math.min(vid.duration * 0.1, 2);
+    }, { once: true });
+    return vid;
+  }
+
   window.updateFileManagerUI = function (winEl) {
     const root = winEl || window.nautilusRootEl || document;
 
@@ -31,6 +49,7 @@
 
       const isImg = isAsset && mime.startsWith("image/");
       const isAudio = (isAsset && mime.startsWith("audio/")) || lowerName.endsWith(".mp3") || lowerName.endsWith(".ogg") || lowerName.endsWith(".wav");
+      const isVideo = (isAsset && mime.startsWith("video/")) || lowerName.endsWith(".mp4") || lowerName.endsWith(".webm") || lowerName.endsWith(".ogv");
 
       // thumbnail dossier si cover.jpg existe dedans
       let folderCoverSrc = null;
@@ -60,6 +79,12 @@
       // 3) fichier audio asset => icone musique
       else if (!isDir && isAudio) {
         iconHtml = `<i class="fas fa-music fm-icon text-orange-400 drop-shadow-md pointer-events-none"></i>`;
+      }
+      // 4) fichier video asset => icone film (miniature async via canvas)
+      else if (!isDir && isVideo) {
+        iconHtml = `<div class="fm-thumb" data-video-thumb>
+          <i class="fas fa-film" style="font-size:2rem;color:#f97316;opacity:0.7;"></i>
+        </div>`;
       }
       else if (isImg) {
         if (typeof window.openImageViewer === "function") {
@@ -119,7 +144,19 @@
             if (window.vlcOpenFromNautilus) {
               window.vlcOpenFromNautilus({
                 dirPath: window.currentFMPath,
-                fileName: name
+                fileName: name,
+                mode: "audio"
+              });
+            }
+          }, 60);
+        } else if (isVideo) {
+          window.openWindow("vlc");
+          setTimeout(() => {
+            if (window.vlcOpenFromNautilus) {
+              window.vlcOpenFromNautilus({
+                dirPath: window.currentFMPath,
+                fileName: name,
+                mode: "video"
               });
             }
           }, 60);
@@ -131,6 +168,28 @@
       };
 
       grid.appendChild(el);
+
+      // --- Miniature async pour les fichiers vidéo : <video> directement dans la grille ---
+      if (!isDir && isVideo && item.src) {
+        const thumbContainer = el.querySelector("[data-video-thumb]");
+        if (thumbContainer) {
+          let vid;
+          if (thumbCache.has(item.src)) {
+            // Cloner depuis le cache
+            const cached = thumbCache.get(item.src);
+            if (cached && cached.tagName === "VIDEO") {
+              vid = makeVideoThumb(item.src);
+            }
+          } else {
+            vid = makeVideoThumb(item.src);
+            thumbCache.set(item.src, vid);
+          }
+          if (vid) {
+            thumbContainer.innerHTML = "";
+            thumbContainer.appendChild(vid);
+          }
+        }
+      }
     });
   };
 

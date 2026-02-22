@@ -9,10 +9,14 @@
   ];
 
   const WALLPAPERS = [
-    { id: 'paul', label: 'Wallpapper_Paul.png', src: 'assets/wallpapers/Wallpapper_Paul.png' },
-    { id: 'elsa', label: 'Wallpapper_Elsa.png', src: 'assets/wallpapers/Wallpapper_Elsa.png' },
-    { id: 'marysa', label: 'Wallpapper_Marysa.png', src: 'assets/wallpapers/Wallpapper_Marysa.png' },
-    { id: 'couple', label: 'Wallpapper_mon couple.png', src: 'assets/wallpapers/Wallpapper_mon_couple.png' },
+    { id: 'paul', label: 'Wallpapper Paul', src: 'assets/wallpapers/Wallpapper_Paul.png' },
+    { id: 'elsa', label: 'Wallpapper Elsa', src: 'assets/wallpapers/Wallpapper_Elsa.png' },
+    { id: 'marysa', label: 'Wallpapper Marysa', src: 'assets/wallpapers/Wallpapper_Marysa.png' },
+    { id: 'couple', label: 'Mon couple', src: 'assets/wallpapers/Wallpapper_mon_couple.png' },
+    { id: 'aurora', label: 'Aurora Mountains', src: 'assets/wallpapers/wallpaper_aurora_mountains.png' },
+    { id: 'ocean', label: 'Ocean Sunset', src: 'assets/wallpapers/wallpaper_ocean_sunset.png' },
+    { id: 'city', label: 'City Night', src: 'assets/wallpapers/wallpaper_city_night.png' },
+    { id: 'nebula', label: 'Cosmic Nebula', src: 'assets/wallpapers/wallpaper_cosmic_nebula.png' },
   ];
 
   function getTheme() {
@@ -20,14 +24,14 @@
   }
 
   function getWallpaper() {
-    return document.body.dataset.wallpaper || localStorage.getItem(LS_WALLPAPER) || 'paul';
+    return document.body.dataset.wallpaper || localStorage.getItem(LS_WALLPAPER) || 'aurora';
   }
 
   function ensurePrefsAPI() {
     if (typeof window.applyUnityPrefs !== 'function') {
       window.applyUnityPrefs = function applyUnityPrefs() {
         const theme = localStorage.getItem(LS_THEME) || 'ambiance';
-        const wp = localStorage.getItem(LS_WALLPAPER) || 'paul';
+        const wp = localStorage.getItem(LS_WALLPAPER) || 'aurora';
         document.body.dataset.theme = theme;
         document.body.dataset.wallpaper = wp;
       };

@@ -6,53 +6,54 @@
                 type: "dir",
                 name: "/",
                 children: {
-                home: {
-                    type: "dir",
-                    children: {
-                    user: {
+                    home: {
                         type: "dir",
                         children: {
-                        Documents: {
-                            type: "dir",
-                            children: {
-                            "secret.txt": { type: "file", content: "Le mot de passe est: ubuntu123" },
+                            user: {
+                                type: "dir",
+                                children: {
+                                    Documents: {
+                                        type: "dir",
+                                        children: {
+                                            "secret.txt": { type: "file", content: "Le mot de passe est: ubuntu123" },
+                                        },
+                                    },
+                                    Images: { type: "dir", children: {} },
+                                    Musique: { type: "dir", children: {} },
+                                    Bureau: { type: "dir", children: {} },
+                                    Téléchargements: { type: "dir", children: {} },
+                                    Vidéos: { type: "dir", children: {} },
+                                    "readme.txt": {
+                                        type: "file",
+                                        content:
+                                            "Bienvenue sur la simulation Ubuntu Unity!\nUtilisez nano ou gedit pour éditer ce fichier.",
+                                    },
+                                },
                             },
                         },
-                        Images: { type: "dir", children: {} },
-                        Musique: { type: "dir", children: {} },
-                        Bureau: { type: "dir", children: {} },
-                        Téléchargements: { type: "dir", children: {} },
-                        "readme.txt": {
-                            type: "file",
-                            content:
-                            "Bienvenue sur la simulation Ubuntu Unity!\nUtilisez nano ou gedit pour éditer ce fichier.",
-                        },
-                        },
                     },
-                    },
-                },
-                boot: { type: "dir", children: {} },
-                dev: { type: "dir", children: {} },
-                etc: { type: "dir", children: { hostname: { type: "file", content: "ubuntu-desktop" } } },
-                bin: { type: "dir", children: {} },
-                media: { type: "dir", children: {} },
-                mnt: { type: "dir", children: {} },
-                opt: { type: "dir", children: {} },
-                proc: { type: "dir", children: {} },
-                root: { type: "dir", children: {} },
-                run: { type: "dir", children: {} },
-                snap: { type: "dir", children: {} },
-                srv: { type: "dir", children: {} },
-                sys: { type: "dir", children: {} },
-                tmp: { type: "dir", children: {} },
-                usr: { type: "dir", children: {} },
-                var: { type: "dir", children: {} },
+                    boot: { type: "dir", children: {} },
+                    dev: { type: "dir", children: {} },
+                    etc: { type: "dir", children: { hostname: { type: "file", content: "ubuntu-desktop" } } },
+                    bin: { type: "dir", children: {} },
+                    media: { type: "dir", children: {} },
+                    mnt: { type: "dir", children: {} },
+                    opt: { type: "dir", children: {} },
+                    proc: { type: "dir", children: {} },
+                    root: { type: "dir", children: {} },
+                    run: { type: "dir", children: {} },
+                    snap: { type: "dir", children: {} },
+                    srv: { type: "dir", children: {} },
+                    sys: { type: "dir", children: {} },
+                    tmp: { type: "dir", children: {} },
+                    usr: { type: "dir", children: {} },
+                    var: { type: "dir", children: {} },
                 },
             };
             // --- helpers: creation dossiers + fichiers "asset" (src URL) ---
-            function ensureDir(node, parts){
+            function ensureDir(node, parts) {
                 let cur = node;
-                for (const p of parts){
+                for (const p of parts) {
                     cur.children = cur.children || {};
                     if (!cur.children[p]) cur.children[p] = { type: "dir", children: {} };
                     cur = cur.children[p];
@@ -60,7 +61,7 @@
                 return cur;
             }
 
-            function addAssetFile(rootNode, relPath, src, mime){
+            function addAssetFile(rootNode, relPath, src, mime) {
                 const parts = String(relPath).split("/").filter(Boolean);
                 const file = parts.pop();
                 const dir = ensureDir(rootNode, parts);
@@ -80,6 +81,16 @@
                 addAssetFile(imgDir, "IMG_08.jpg", "https://picsum.photos/1920/1080?random=108", "image/jpeg");
                 addAssetFile(imgDir, "IMG_09.jpg", "https://picsum.photos/1920/1080?random=109", "image/jpeg");
                 addAssetFile(imgDir, "IMG_10.jpg", "https://picsum.photos/1920/1080?random=110", "image/jpeg");
+
+                // Fonds d'écran : dossier assets/wallpapers monté dans Images/Fonds Ecran/
+                addAssetFile(imgDir, "Fonds Ecran/Wallpapper_Paul.png", "assets/wallpapers/Wallpapper_Paul.png", "image/png");
+                addAssetFile(imgDir, "Fonds Ecran/Wallpapper_Elsa.png", "assets/wallpapers/Wallpapper_Elsa.png", "image/png");
+                addAssetFile(imgDir, "Fonds Ecran/Wallpapper_Marysa.png", "assets/wallpapers/Wallpapper_Marysa.png", "image/png");
+                addAssetFile(imgDir, "Fonds Ecran/Wallpapper_mon_couple.png", "assets/wallpapers/Wallpapper_mon_couple.png", "image/png");
+                addAssetFile(imgDir, "Fonds Ecran/Aurora_Mountains.png", "assets/wallpapers/wallpaper_aurora_mountains.png", "image/png");
+                addAssetFile(imgDir, "Fonds Ecran/Ocean_Sunset.png", "assets/wallpapers/wallpaper_ocean_sunset.png", "image/png");
+                addAssetFile(imgDir, "Fonds Ecran/City_Night.png", "assets/wallpapers/wallpaper_city_night.png", "image/png");
+                addAssetFile(imgDir, "Fonds Ecran/Cosmic_Nebula.png", "assets/wallpapers/wallpaper_cosmic_nebula.png", "image/png");
             }
 
             // Mount dans /home/user/Musique
@@ -92,6 +103,24 @@
                 addAssetFile(musicDir, "Lea_Solene/Lea_Solene_sous_l_oeil_de_jah.mp3", "assets/musics/lea_solene_sous_l_oeil_de_jah.mp3", "audio/mpeg");
                 addAssetFile(musicDir, "Lea_Solene/Lea_Solene_sous_la_lumiere_douce.mp3", "assets/musics/lea_solene_sous_la_lumiere_douce.mp3", "audio/mpeg");
                 addAssetFile(musicDir, "Lea_Solene/cover.jpg", "assets/musics/cover.jpg", "image/jpeg");
+            }
+            // Mount dans /home/user/Vidéos (hébergées hors dépôt via GitHub Releases)
+            // ⚠️  Remplace les URLs ci-dessous par celles de tes propres GitHub Releases :
+            //     Format : https://github.com/Paullux/phoenix-os/releases/download/<tag>/<fichier.mp4>
+            const videosDir = this.root.children.home.children.user.children["Vidéos"];
+            if (videosDir && videosDir.type === "dir") {
+                addAssetFile(videosDir, "Reseaux Sociaux/Paul - Golden Coast Prayer.mp4",
+                    "https://github.com/Paullux/phoenix-os/releases/download/v1.0-media/Paul_-_Golden_Coast_Prayer.mp4",
+                    "video/mp4");
+                addAssetFile(videosDir, "Reseaux Sociaux/Léa Solène - Sous loeil de Jah.mp4",
+                    "https://github.com/Paullux/phoenix-os/releases/download/v1.0-media/Lea_Solene_-_Sous_loeil_de_Jah.mp4",
+                    "video/mp4");
+                addAssetFile(videosDir, "Reseaux Sociaux/Léa Solène - Ce Qui Reste.mp4",
+                    "https://github.com/Paullux/phoenix-os/releases/download/v1.0-media/Lea_Solene_-_Ce_Qui_Reste.mp4",
+                    "video/mp4");
+                addAssetFile(videosDir, "Reseaux Sociaux/riff Where Is My Mind.mp4",
+                    "https://github.com/Paullux/phoenix-os/releases/download/v1.0-media/riff_WhereIsMyMind.mp4",
+                    "video/mp4");
             }
             this.currentPath = ["home", "user"];
             this.history = [];
@@ -226,9 +255,9 @@
             Object.keys(targetNode.children)
                 .sort()
                 .forEach((item) => {
-                const isDir = targetNode.children[item].type === "dir";
-                const colorClass = isDir ? "text-blue-400 font-bold" : "text-white";
-                output += `<span class="${colorClass}">${item}</span>  `;
+                    const isDir = targetNode.children[item].type === "dir";
+                    const colorClass = isDir ? "text-blue-400 font-bold" : "text-white";
+                    output += `<span class="${colorClass}">${item}</span>  `;
                 });
             return `<div class="break-words">${output}</div>`;
         }

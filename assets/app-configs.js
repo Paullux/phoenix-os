@@ -5,7 +5,7 @@
     Object.assign(window.appConfigs, {
         terminal: {
             title: "Terminal",
-            icon: "fa-terminal", 
+            icon: "fa-terminal",
             width: 650,
             height: 420,
             content: `
@@ -105,11 +105,13 @@
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
                         onclick="fmNavigateTo('/home/user/Documents')"><i class="fas fa-file-alt mr-3 text-gray-500"></i> Documents</div>
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Musique')"><i class="fas fa-file-alt mr-3 text-gray-500"></i> Musique</div>
+                        onclick="fmNavigateTo('/home/user/Musique')"><i class="fas fa-music mr-3 text-gray-500"></i> Musique</div>
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
                         onclick="fmNavigateTo('/home/user/Images')"><i class="fas fa-images mr-3 text-gray-500"></i> Images</div>
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
                         onclick="fmNavigateTo('/home/user/Téléchargements')"><i class="fas fa-download mr-3 text-gray-500"></i> Téléch.</div>
+                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
+                        onclick="fmNavigateTo('/home/user/Vidéos')"><i class="fas fa-film mr-3 text-gray-500"></i> Vidéos</div>
                     <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
                         onclick="fmNavigateTo('/')"><i class="fas fa-hdd mr-3 text-gray-500"></i> Ordinateur</div>
                     </div>
@@ -118,7 +120,7 @@
                 </div>
                 </div>
             `,
-            onLoad(winEl){
+            onLoad(winEl) {
                 window.nautilusRootEl = winEl;
                 window.currentFMPath = "/home/user";
                 setTimeout(() => window.updateFileManagerUI(winEl), 0);
@@ -133,6 +135,11 @@
             content: `
                 <div class="vlc-wrap">
                     <div class="vlc-stage">
+                        <video id="vlc-video"
+                            class="vlc-video hidden"
+                            style="width:100%;height:100%;object-fit:cover;background:#000;"
+                            preload="metadata">
+                        </video>
                         <img id="vlc-cover" class="vlc-cover hidden" src="" alt="">
                         <img
                             src="assets/logos/vlc.svg"
@@ -169,7 +176,7 @@
                     <div id="vlc-title" class="vlc-title">Aucun média</div>
                 </div>
             `,
-            onLoad(winEl){
+            onLoad(winEl) {
                 if (typeof window.vlcReset === "function") {
                     window.vlcReset();
                 }
