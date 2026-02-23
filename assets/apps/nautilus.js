@@ -132,6 +132,23 @@
       });
       el.addEventListener("dragend", () => (el.style.opacity = "1"));
 
+      // En mode mobile : simple clic ouvre le dossier ou le média
+      el.addEventListener("click", () => {
+        if (!document.body.classList.contains("mobile-mode")) return;
+        if (isDir) {
+          window.currentFMPath = window.currentFMPath === "/" ? `/${name}` : `${window.currentFMPath}/${name}`;
+          window.updateFileManagerUI(root);
+        } else if (isImg) {
+          window.openImageViewer(item.src, name, window.currentFMPath);
+        } else if (isAudio) {
+          window.openWindow("vlc");
+          setTimeout(() => { if (window.vlcOpenFromNautilus) window.vlcOpenFromNautilus({ dirPath: window.currentFMPath, fileName: name, mode: "audio" }); }, 60);
+        } else if (isVideo) {
+          window.openWindow("vlc");
+          setTimeout(() => { if (window.vlcOpenFromNautilus) window.vlcOpenFromNautilus({ dirPath: window.currentFMPath, fileName: name, mode: "video" }); }, 60);
+        }
+      });
+
       el.ondblclick = () => {
         if (isDir) {
           window.currentFMPath = window.currentFMPath === "/" ? `/${name}` : `${window.currentFMPath}/${name}`;

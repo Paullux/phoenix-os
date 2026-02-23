@@ -96,24 +96,59 @@
                     </div>
                 </div>
                 <div class="flex flex-grow overflow-hidden">
-                    <div class="w-40 bg-gray-100 border-r p-2 text-sm text-gray-700 flex-shrink-0 flex flex-col gap-1 select-none">
-                    <div class="p-1 font-bold mb-1 text-gray-500 uppercase text-xs">Lieux</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user')"><i class="fas fa-home mr-3 text-gray-500"></i> Dossier</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Bureau')"><i class="fas fa-desktop mr-3 text-gray-500"></i> Bureau</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Documents')"><i class="fas fa-file-alt mr-3 text-gray-500"></i> Documents</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Musique')"><i class="fas fa-music mr-3 text-gray-500"></i> Musique</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Images')"><i class="fas fa-images mr-3 text-gray-500"></i> Images</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Téléchargements')"><i class="fas fa-download mr-3 text-gray-500"></i> Téléch.</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/home/user/Vidéos')"><i class="fas fa-film mr-3 text-gray-500"></i> Vidéos</div>
-                    <div class="p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center"
-                        onclick="fmNavigateTo('/')"><i class="fas fa-hdd mr-3 text-gray-500"></i> Ordinateur</div>
+                    <!-- Sidebar Nautilus : icônes uniquement par défaut, hamburger pour toggle noms -->
+                    <div id="fm-sidebar"
+                      class="fm-sidebar-compact bg-gray-100 border-r text-sm text-gray-700 flex-shrink-0 flex flex-col gap-0 select-none transition-all duration-200"
+                      style="width:48px;">
+                      <!-- Bouton hamburger -->
+                      <button id="fm-sidebar-toggle"
+                        class="w-full flex items-center justify-center p-2 hover:bg-orange-100 border-b border-gray-200 text-gray-400 hover:text-gray-700"
+                        title="Afficher/masquer les noms"
+                        onclick="window.fmToggleSidebar()">
+                        <i class="fas fa-bars text-sm"></i>
+                      </button>
+                      <!-- Section Lieux -->
+                      <div id="fm-sidebar-section-label" class="hidden px-2 pt-2 pb-1 font-bold text-gray-500 uppercase text-xs whitespace-nowrap">Lieux</div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/home/user')" title="Dossier Personnel">
+                        <i class="fas fa-home flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">Dossier</span>
+                      </div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/home/user/Bureau')" title="Bureau">
+                        <i class="fas fa-desktop flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">Bureau</span>
+                      </div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/home/user/Documents')" title="Documents">
+                        <i class="fas fa-file-alt flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">Documents</span>
+                      </div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/home/user/Musique')" title="Musique">
+                        <i class="fas fa-music flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">Musique</span>
+                      </div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/home/user/Images')" title="Images">
+                        <i class="fas fa-images flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">Images</span>
+                      </div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/home/user/T\u00e9l\u00e9chargements')" title="T\u00e9l\u00e9chargements">
+                        <i class="fas fa-download flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">T\u00e9l\u00e9ch.</span>
+                      </div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/home/user/Vid\u00e9os')" title="Vid\u00e9os">
+                        <i class="fas fa-film flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">Vid\u00e9os</span>
+                      </div>
+                      <div class="fm-sidebar-item p-1 hover:bg-orange-100 cursor-pointer rounded flex items-center gap-2 mx-1"
+                          onclick="fmNavigateTo('/')" title="Ordinateur">
+                        <i class="fas fa-hdd flex-shrink-0 text-gray-500 text-base w-5 text-center"></i>
+                        <span class="fm-sidebar-label hidden whitespace-nowrap text-xs">Ordinateur</span>
+                      </div>
                     </div>
                     <div id="fm-grid"
                     class="flex-grow bg-white p-4 grid grid-cols-4 gap-4 content-start auto-rows-max overflow-y-auto select-none"></div>
@@ -123,9 +158,27 @@
             onLoad(winEl) {
                 window.nautilusRootEl = winEl;
                 window.currentFMPath = "/home/user";
+                // Initialiser le toggle sidebar
+                window.fmSidebarExpanded = false;
+                window.fmToggleSidebar = function () {
+                    const sidebar = winEl.querySelector('#fm-sidebar');
+                    const labels = winEl.querySelectorAll('.fm-sidebar-label');
+                    const section = winEl.querySelector('#fm-sidebar-section-label');
+                    window.fmSidebarExpanded = !window.fmSidebarExpanded;
+                    if (window.fmSidebarExpanded) {
+                        sidebar.style.width = '160px';
+                        labels.forEach(l => l.classList.remove('hidden'));
+                        if (section) section.classList.remove('hidden');
+                    } else {
+                        sidebar.style.width = '48px';
+                        labels.forEach(l => l.classList.add('hidden'));
+                        if (section) section.classList.add('hidden');
+                    }
+                };
                 setTimeout(() => window.updateFileManagerUI(winEl), 0);
             }
         },
+
 
         vlc: {
             title: "VLC media player",
